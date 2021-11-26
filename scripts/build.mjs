@@ -213,8 +213,8 @@ async function buildJs(mainFile, extraFiles, importOverrides) {
                 "@babel/preset-env",
                 {
                     useBuiltIns: "entry",
-                    corejs: "3.4",
-                    targets: { "firefox": "60", "chrome": "67",},
+                    corejs: "3.19.1",
+                    targets: { "firefox": "60"},
                 }
             ]
         ]
