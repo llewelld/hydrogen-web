@@ -12,7 +12,7 @@
     "lint-ci": "eslint src/",
     "test": "impunity --entry-point src/main.js src/platform/web/Platform.js --force-esm-dirs lib/ src/",
     "start": "snowpack dev --port 3000",
-    "build": "node --experimental-modules scripts/build.mjs",
+    "build": "node --experimental-modules scripts/build.mjs --modern-only",
     "postinstall": "node ./scripts/post-install.js"
   },
   "repository": {

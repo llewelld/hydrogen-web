@@ -205,11 +205,27 @@ async function buildHtml(doc, version, baseConfig, globalHash, modernOnly, asset
 }
 
 async function buildJs(mainFile, extraFiles, importOverrides) {
+    const babelPlugin = babel.babel({
+        babelHelpers: 'bundled',
+        exclude: 'node_modules/**',
+        presets: [
+            [
+                "@babel/preset-env",
+                {
+                    useBuiltIns: "entry",
+                    corejs: "3.4",
+                    targets: { "firefox": "60", "chrome": "67",},
+                }
+            ]
+        ]
+    });
+
     // create js bundle
     const plugins = [multi(), removeJsComments({comments: "none"})];
     if (importOverrides) {
         plugins.push(overridesAsRollupPlugin(importOverrides));
     }
+    plugins.push(nodeResolve(), babelPlugin);
     const bundle = await rollup({
         // for fake-indexeddb, so usage for tests only doesn't put it in bundle
         treeshake: {moduleSideEffects: isPathInSrcDir},
